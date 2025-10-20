@@ -1,4 +1,6 @@
 import os
+from threading import Thread
+from flask import Flask
 import logging
 from uuid import uuid4
 from telegram import Update
@@ -206,6 +208,20 @@ def main():
 
     print("🤖 Бот запущено...")
     app.run_polling()
+# === Простий Flask-сервер для Render ===
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "✅ Bot is running on Render"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
 
 if __name__ == "__main__":
+    # Запускаємо Flask у фоновому потоці
+    Thread(target=run_flask).start()
+    # Запускаємо Telegram-бота
     main()
+
