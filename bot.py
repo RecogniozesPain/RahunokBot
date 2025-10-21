@@ -82,7 +82,6 @@ def replace_placeholders_in_docx(doc_path, mapping, output_path):
 # === Обробники Telegram ===
 async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     ctx.user_data.clear()
-    await ctx.application.stop_running()
 
     keyboard = [
         [KeyboardButton("Сформувати рахунок📋")],
